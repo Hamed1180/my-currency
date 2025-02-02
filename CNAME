@@ -1,1 +1,65 @@
-rublechand.com
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نرخ ارز</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>نرخ ارز</h1>
+        <label for="dollar">نرخ دلار (USD):</label>
+        <input type="number" id="dollar" value="0">
+        <label for="ruble">نرخ روبل (RUB):</label>
+        <input type="number" id="ruble" value="0">
+        <button onclick="updateRates()">به‌روزرسانی نرخ</button>
+    </div>
+
+    <script>
+        // فرض کنید نرخ‌ها در یک فایل JSON ذخیره شده‌اند
+        let rates = {
+            dollar: 0,
+            ruble: 0
+        };
+
+        // بارگذاری نرخ‌ها از localStorage (یا یک فایل JSON)
+        function loadRates() {
+            const savedRates = localStorage.getItem('rates');
+            if (savedRates) {
+                rates = JSON.parse(savedRates);
+                document.getElementById('dollar').value = rates.dollar;
+                document.getElementById('ruble').value = rates.ruble;
+            }
+        }
+
+        // به‌روزرسانی نرخ‌ها
+        function updateRates() {
+            rates.dollar = parseFloat(document.getElementById('dollar').value);
+            rates.ruble = parseFloat(document.getElementById('ruble').value);
+            localStorage.setItem('rates', JSON.stringify(rates));
+            alert('نرخ‌ها به‌روزرسانی شدند!');
+        }
+
+        // بارگذاری نرخ‌ها هنگام لود صفحه
+        window.onload = loadRates;
+    </script>
+</body>
+</html>
